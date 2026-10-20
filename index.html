@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LUMÉ — FW26 Drop</title>
+<meta name="description" content="20대를 위한 무드 기반 패션 브랜드 LUMÉ의 FW26 컬렉션 드롭 랜딩 페이지" />
+<!--
+================================================================
+  [기획 요약] LUMÉ FW26 "Soft Static" 드롭 랜딩
+----------------------------------------------------------------
+  · 목적     : 한정 드롭 사전 알림 신청(리드 수집) + 컬렉션 인지도
+  · 타깃     : 20–29세, 숏폼/인스타 중심 소비, 개성·무드 중시,
+               '나만 아는 브랜드' 선호, 모바일 비중 80%+
+  · 컨셉     : 흐릿한 유리 너머의 빛 — Soft Static (Y2K × 미니멀)
+  · 핵심 KPI : 드롭 알림 신청 전환율, 스크롤 도달률, 룩 저장 수
+  · IA       : Hero → Marquee → Drop 카운트다운 → 컬렉션(필터)
+               → 무드 벤토 그리드 → 스타일 퀴즈 → 리뷰 → 알림 CTA → Footer
+  · UX 트렌드: 글라스모피즘, 벤토 그리드, 키네틱 타이포,
+               메시 그라디언트, 마이크로 인터랙션, 다크/라이트 토글,
+               스크롤 리빌, 엄지 친화적 하단 CTA(모바일)
+  (페이지 우측 하단 '기획 노트' 버튼에서도 확인 가능)
+================================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0b0a12;
+    --bg-2: #14121f;
+    --text: #f5f3ff;
+    --muted: rgba(245, 243, 255, 0.62);
+    --glass: rgba(255, 255, 255, 0.07);
+    --glass-strong: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-shine: rgba(255, 255, 255, 0.35);
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    --c1: #b78cff;   /* lavender */
+    --c2: #ff7ac6;   /* pink */
+    --c3: #6ee7ff;   /* aqua */
+    --c4: #d4ff5a;   /* lime accent */
+    --radius: 28px;
+    --font: "Noto Sans KR", "Pretendard", system-ui, -apple-system, sans-serif;
+    --display: "Space Grotesk", "Noto Sans KR", sans-serif;
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f1fb;
+    --bg-2: #ebe6f7;
+    --text: #17131f;
+    --muted: rgba(23, 19, 31, 0.62);
+    --glass: rgba(255, 255, 255, 0.45);
+    --glass-strong: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --glass-shine: rgba(255, 255, 255, 0.9);
+    --shadow: 0 20px 50px rgba(80, 50, 140, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+    transition: background .5s, color .5s;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+  img { max-width: 100%; display: block; }
+  ::selection { background: var(--c2); color: #fff; }
+
+  /* ---------- Animated mesh background ---------- */
+  .mesh { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55;
+    animation: float 22s ease-in-out infinite alternate;
+  }
+  .blob.b1 { width: 520px; height: 520px; background: var(--c1); top: -120px; left: -100px; }
+  .blob.b2 { width: 460px; height: 460px; background: var(--c2); top: 30%; right: -140px; animation-delay: -6s; }
+  .blob.b3 { width: 400px; height: 400px; background: var(--c3); bottom: -120px; left: 25%; animation-delay: -12s; }
+  .blob.b4 { width: 260px; height: 260px; background: var(--c4); top: 55%; left: 8%; opacity: .25; animation-delay: -3s; }
+  @keyframes float {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(80px, -60px) scale(1.15); }
+    100% { transform: translate(-60px, 70px) scale(.95); }
+  }
+  .grain {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .08;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Glass primitive ---------- */
+  .glass {
+    background: linear-gradient(135deg, var(--glass-strong), var(--glass));
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow), inset 0 1px 0 var(--glass-shine);
+    border-radius: var(--radius);
+    position: relative;
+  }
+  .glass::before { /* light sheen */
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.14), transparent 40%);
+    opacity: 0; transition: opacity .3s;
+  }
+  .glass:hover::before { opacity: 1; }
+
+  .container { width: min(1200px, 100% - 32px); margin-inline: auto; }
+  section { padding: 110px 0; position: relative; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--display); font-size: 13px; letter-spacing: .14em; text-transform: uppercase;
+    padding: 8px 14px; border-radius: 999px;
+  }
+  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c4); box-shadow: 0 0 12px var(--c4); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  .h2 { font-family: var(--display); font-size: clamp(36px, 6vw, 72px); line-height: 1.02; letter-spacing: -.03em; font-weight: 700; margin: 18px 0 14px; }
+  .h2 .ko { font-family: var(--font); font-weight: 900; }
+  .lead { color: var(--muted); font-size: clamp(15px, 1.6vw, 18px); max-width: 560px; }
+  .grad-text {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c1));
+    background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shift 8s linear infinite;
+  }
+  @keyframes shift { to { background-position: 300% 0; } }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; padding: 16px 26px; border-radius: 999px;
+    font-weight: 700; font-size: 15px; transition: transform .25s, box-shadow .25s;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--text); color: var(--bg); box-shadow: 0 10px 30px rgba(183, 140, 255, .35); }
+  .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 16px 40px rgba(255, 122, 198, .45); }
+  .btn-glass:hover { transform: translateY(-3px); }
+  .btn .arrow { transition: transform .25s; }
+  .btn:hover .arrow { transform: translateX(4px) rotate(-45deg); }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 50;
+    width: min(1200px, 100% - 32px); padding: 10px 10px 10px 22px; border-radius: 999px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    transition: top .3s;
+  }
+  .logo { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -.02em; }
+  .logo span { color: var(--c2); }
+  .nav ul { display: flex; gap: 6px; list-style: none; }
+  .nav ul a { padding: 10px 16px; border-radius: 999px; font-size: 14px; color: var(--muted); transition: .2s; }
+  .nav ul a:hover { color: var(--text); background: var(--glass-strong); }
+  .nav-actions { display: flex; gap: 8px; align-items: center; }
+  .icon-btn {
+    width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--glass-strong); border: 1px solid var(--glass-border); transition: .2s; position: relative;
+  }
+  .icon-btn:hover { transform: rotate(-12deg); }
+  .badge {
+    position: absolute; top: -3px; right: -3px; min-width: 18px; height: 18px; border-radius: 999px;
+    background: var(--c2); color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center; padding: 0 5px;
+    transform: scale(0); transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .badge.show { transform: scale(1); }
+
+  /* ---------- Hero ---------- */
+  .hero { min-height: 100vh; display: grid; align-items: center; padding-top: 130px; padding-bottom: 60px; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
+  .hero h1 {
+    font-family: var(--display); font-weight: 700; letter-spacing: -.045em;
+    font-size: clamp(56px, 10vw, 148px); line-height: .9; margin: 22px 0 24px;
+  }
+  .hero h1 .line { display: block; overflow: hidden; }
+  .hero h1 .line span { display: inline-block; animation: rise 1s cubic-bezier(.2,.8,.2,1) both; }
+  .hero h1 .line:nth-child(2) span { animation-delay: .12s; }
+  .hero h1 .line:nth-child(3) span { animation-delay: .24s; }
+  .hero h1 .outline { -webkit-text-stroke: 1.5px var(--text); color: transparent; }
+  @keyframes rise { from { transform: translateY(110%); } to { transform: none; } }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+  .hero-stats { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
+  .stat { padding: 14px 20px; border-radius: 20px; }
+  .stat b { font-family: var(--display); font-size: 26px; display: block; line-height: 1.1; }
+  .stat small { color: var(--muted); font-size: 12px; }
+
+  .hero-visual { position: relative; height: 600px; }
+  .model-card {
+    position: absolute; inset: 0 30px 40px 30px; overflow: hidden; padding: 0;
+    transform-style: preserve-3d; transition: transform .15s ease-out;
+  }
+  .model-art {
+    position: absolute; inset: 14px; border-radius: 20px; overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 28%, #ffe9f6 0 9%, transparent 9.5%),
+      radial-gradient(ellipse 34% 46% at 50% 70%, rgba(20,15,40,.9) 0 98%, transparent 100%),
+      radial-gradient(ellipse 22% 12% at 50% 40%, rgba(20,15,40,.9) 0 98%, transparent 100%),
+      linear-gradient(160deg, var(--c1), var(--c2) 55%, var(--c3));
+  }
+  .model-art::after { /* hoodie highlight */
+    content: ""; position: absolute; left: 50%; top: 46%; width: 46%; height: 50%; transform: translateX(-50%);
+    border-radius: 45% 45% 10% 10%;
+    background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 60%);
+    mix-blend-mode: overlay;
+  }
+  .model-label {
+    position: absolute; left: 30px; right: 30px; bottom: 30px; padding: 16px 18px; border-radius: 20px;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  }
+  .model-label strong { font-size: 15px; }
+  .model-label span { color: var(--muted); font-size: 12px; display: block; }
+  .chip-float {
+    position: absolute; padding: 12px 16px; border-radius: 18px; font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; gap: 10px; animation: bob 5s ease-in-out infinite;
+  }
+  .chip-float.c-a { top: 40px; left: -20px; }
+  .chip-float.c-b { top: 220px; right: -10px; animation-delay: -2s; }
+  .chip-float.c-c { bottom: 0; left: 0; animation-delay: -3.5s; }
+  .avatars { display: flex; }
+  .avatars i { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--bg); margin-left: -8px; }
+  .avatars i:first-child { margin-left: 0; background: var(--c1); }
+  .avatars i:nth-child(2) { background: var(--c2); }
+  .avatars i:nth-child(3) { background: var(--c3); }
+  @keyframes bob { 50% { transform: translateY(-14px); } }
+
+  /* ---------- Marquee ---------- */
+  .marquee { padding: 0; margin: 20px 0; transform: rotate(-2deg); }
+  .marquee-track {
+    display: flex; gap: 40px; white-space: nowrap; padding: 22px 0; width: max-content;
+    animation: scroll 28s linear infinite;
+    font-family: var(--display); font-size: clamp(28px, 4vw, 52px); font-weight: 700; letter-spacing: -.02em;
+  }
+  .marquee-wrap { border-radius: 0; border-left: 0; border-right: 0; overflow: hidden; }
+  .marquee-track span { display: inline-flex; align-items: center; gap: 40px; }
+  .marquee-track .star { color: var(--c4); }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  /* ---------- Drop countdown ---------- */
+  .drop { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; padding: 44px; }
+  .countdown { display: flex; gap: 12px; }
+  .cd-box { width: 104px; padding: 18px 0; text-align: center; border-radius: 22px; }
+  .cd-box b { font-family: var(--display); font-size: 46px; line-height: 1; display: block; font-variant-numeric: tabular-nums; }
+  .cd-box small { color: var(--muted); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+
+  /* ---------- Collection ---------- */
+  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+  .filters { display: flex; gap: 8px; padding: 6px; border-radius: 999px; flex-wrap: wrap; }
+  .filters button { padding: 10px 18px; border-radius: 999px; font-size: 14px; color: var(--muted); transition: .25s; }
+  .filters button.active { background: var(--text); color: var(--bg); font-weight: 700; }
+  .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .product { padding: 12px; transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .35s; }
+  .product:hover { transform: translateY(-8px); }
+  .product.hide { display: none; }
+  .p-img { aspect-ratio: 3/4; border-radius: 20px; position: relative; overflow: hidden; display: grid; place-items: center; }
+  .p-img .shape { width: 62%; aspect-ratio: 1/1.2; transition: transform .6s cubic-bezier(.2,.8,.2,1); filter: drop-shadow(0 20px 30px rgba(0,0,0,.3)); }
+  .product:hover .shape { transform: scale(1.08) rotate(-4deg); }
+  .p-tag { position: absolute; top: 12px; left: 12px; padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .06em; }
+  .like {
+    position: absolute; top: 10px; right: 10px; width: 38px; height: 38px; border-radius: 50%;
+    display: grid; place-items: center; transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .like:active { transform: scale(.8); }
+  .like.on svg { fill: var(--c2); stroke: var(--c2); }
+  .quick-add {
+    position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 12px; border-radius: 14px; font-size: 13px; font-weight: 700;
+    transform: translateY(130%); transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .product:hover .quick-add, .product:focus-within .quick-add { transform: none; }
+  .p-info { padding: 14px 6px 6px; display: flex; justify-content: space-between; gap: 8px; }
+  .p-info h3 { font-size: 15px; font-weight: 700; }
+  .p-info p { font-size: 12px; color: var(--muted); }
+  .p-price { font-family: var(--display); font-weight: 700; font-size: 15px; }
+  .swatches { display: flex; gap: 6px; padding: 0 6px 6px; }
+  .swatches i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--glass-border); }
+
+  /* ---------- Bento ---------- */
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 210px; gap: 18px; }
+  .tile { padding: 28px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+  .tile h3 { font-family: var(--display); font-size: 24px; letter-spacing: -.02em; line-height: 1.15; }
+  .tile p { color: var(--muted); font-size: 14px; }
+  .t-big { grid-column: span 2; grid-row: span 2; }
+  .t-wide { grid-column: span 2; }
+  .t-tall { grid-row: span 2; }
+  .t-big .art {
+    position: absolute; inset: 0; z-index: -1; opacity: .9;
+    background:
+      radial-gradient(circle at 80% 20%, var(--c2), transparent 40%),
+      radial-gradient(circle at 20% 90%, var(--c3), transparent 45%),
+      radial-gradient(circle at 60% 60%, var(--c1), transparent 50%);
+    filter: blur(10px);
+  }
+  .t-big h3 { font-size: clamp(30px, 3.6vw, 48px); }
+  .big-num { font-family: var(--display); font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: -.04em; }
+  .eco-bar { height: 10px; border-radius: 999px; background: var(--glass-strong); overflow: hidden; }
+  .eco-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--c4), var(--c3)); transition: width 1.6s cubic-bezier(.2,.8,.2,1); }
+  .in .eco-bar i { width: 72%; }
+  .palette { display: flex; gap: 8px; }
+  .palette i { flex: 1; height: 56px; border-radius: 14px; transition: flex .4s; }
+  .palette i:hover { flex: 2.2; }
+  .ring {
+    width: 120px; height: 120px; border-radius: 50%; margin-inline: auto;
+    background: conic-gradient(from 0deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c1));
+    animation: spin 10s linear infinite; -webkit-mask: radial-gradient(circle, transparent 46%, #000 47%); mask: radial-gradient(circle, transparent 46%, #000 47%);
+  }
+  @keyframes spin { to { transform: rotate(1turn); } }
+
+  /* ---------- Quiz ---------- */
+  .quiz { display: grid; grid-template-columns: .9fr 1.1fr; gap: 30px; padding: 44px; align-items: center; }
+  .quiz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opt {
+    padding: 22px 18px; border-radius: 20px; text-align: left; transition: .25s;
+    background: var(--glass); border: 1px solid var(--glass-border);
+  }
+  .opt:hover { background: var(--glass-strong); transform: translateY(-3px); }
+  .opt.sel { border-color: var(--c2); box-shadow: 0 0 0 3px rgba(255,122,198,.25); }
+  .opt .emo { font-size: 26px; display: block; margin-bottom: 8px; }
+  .opt b { display: block; font-size: 15px; }
+  .opt small { color: var(--muted); font-size: 12px; }
+  .quiz-result { margin-top: 18px; padding: 18px 20px; border-radius: 20px; font-size: 14px; display: none; }
+  .quiz-result.show { display: block; animation: pop .5s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes pop { from { transform: scale(.9); opacity: 0; } }
+
+  /* ---------- Reviews ---------- */
+  .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .review { padding: 26px; }
+  .review .stars { color: var(--c4); letter-spacing: 2px; font-size: 14px; }
+  .review p { margin: 14px 0 20px; font-size: 15px; }
+  .who { display: flex; align-items: center; gap: 12px; }
+  .who i { width: 40px; height: 40px; border-radius: 50%; }
+  .who b { font-size: 14px; display: block; }
+  .who small { color: var(--muted); font-size: 12px; }
+
+  /* ---------- CTA ---------- */
+  .cta { text-align: center; padding: 80px 30px; overflow: hidden; }
+  .cta .h2 { margin-inline: auto; }
+  .cta .lead { margin: 0 auto 30px; }
+  .form { display: flex; gap: 8px; max-width: 480px; margin: 0 auto; padding: 8px; border-radius: 999px; }
+  .form input {
+    flex: 1; min-width: 0; background: none; border: 0; outline: none; padding: 0 18px; color: var(--text); font: inherit; font-size: 15px;
+  }
+  .form input::placeholder { color: var(--muted); }
+  .perks { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-top: 22px; color: var(--muted); font-size: 13px; }
+
+  footer { padding: 50px 0 120px; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding: 28px 32px; align-items: center; }
+  .foot nav { display: flex; gap: 18px; color: var(--muted); font-size: 14px; flex-wrap: wrap; }
+  .foot nav a:hover { color: var(--text); }
+
+  /* ---------- Planning drawer ---------- */
+  .brief-btn {
+    position: fixed; right: 20px; bottom: 20px; z-index: 60; padding: 14px 20px; border-radius: 999px;
+    font-weight: 700; font-size: 14px; display: flex; gap: 8px; align-items: center;
+  }
+  .drawer-bg { position: fixed; inset: 0; z-index: 70; background: rgba(0,0,0,.35); opacity: 0; pointer-events: none; transition: .35s; }
+  .drawer {
+    position: fixed; top: 16px; right: 16px; bottom: 16px; z-index: 80; width: min(440px, 100% - 32px);
+    padding: 28px; overflow-y: auto; transform: translateX(110%); transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .drawer-open .drawer { transform: none; }
+  .drawer-open .drawer-bg { opacity: 1; pointer-events: auto; }
+  .drawer h2 { font-family: var(--display); font-size: 28px; letter-spacing: -.02em; margin-bottom: 4px; }
+  .drawer .close { position: absolute; top: 20px; right: 20px; }
+  .brief-block { margin-top: 18px; padding: 18px; border-radius: 18px; background: var(--glass); border: 1px solid var(--glass-border); }
+  .brief-block h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--c2); margin-bottom: 8px; font-family: var(--display); }
+  .brief-block p, .brief-block li { font-size: 14px; }
+  .brief-block ul { padding-left: 18px; }
+  .brief-block li + li { margin-top: 4px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span { font-size: 12px; padding: 6px 10px; border-radius: 999px; background: var(--glass-strong); border: 1px solid var(--glass-border); }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed; left: 50%; bottom: 90px; transform: translate(-50%, 30px); z-index: 90; padding: 14px 22px; border-radius: 999px;
+    font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- Cursor glow ---------- */
+  .cursor {
+    position: fixed; width: 340px; height: 340px; border-radius: 50%; pointer-events: none; z-index: -1;
+    background: radial-gradient(circle, rgba(255,122,198,.22), transparent 60%);
+    transform: translate(-50%, -50%); transition: opacity .3s;
+  }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .9s, transform .9s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .hero-grid, .quiz, .drop { grid-template-columns: 1fr; }
+    .hero-visual { height: 520px; max-width: 460px; width: 100%; margin-inline: auto; }
+    .products { grid-template-columns: repeat(2, 1fr); }
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .reviews { grid-template-columns: 1fr; }
+    .nav ul { display: none; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 72px 0; }
+    .hero { padding-top: 110px; }
+    .hero-visual { height: 440px; }
+    .chip-float.c-a { left: 0; }
+    .chip-float.c-b { right: 0; }
+    .drop, .quiz { padding: 28px 20px; }
+    .countdown { gap: 8px; }
+    .cd-box { width: auto; flex: 1; }
+    .cd-box b { font-size: 32px; }
+    .products { gap: 10px; }
+    .product { padding: 8px; border-radius: 22px; }
+    .quick-add { transform: none; padding: 9px; font-size: 12px; }
+    .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .t-big, .t-wide, .t-tall { grid-column: auto; grid-row: auto; }
+    .tile { min-height: 190px; }
+    .t-big { min-height: 320px; }
+    .quiz-opts { grid-template-columns: 1fr; }
+    .form { flex-direction: column; border-radius: 24px; }
+    .form input { padding: 14px 16px; }
+    .form .btn { justify-content: center; }
+    .brief-btn { right: 50%; transform: translateX(50%); }
+    .cursor { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="mesh" aria-hidden="true">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header class="nav glass">
+    <a href="#" class="logo">LUMÉ<span>.</span></a>
+    <nav>
+      <ul>
+        <li><a href="#drop">Drop</a></li>
+        <li><a href="#shop">Collection</a></li>
+        <li><a href="#mood">Mood</a></li>
+        <li><a href="#quiz">Style Test</a></li>
+        <li><a href="#join">Join</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="테마 전환">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="장바구니">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow glass"><span class="dot"></span> FW26 Drop · 11.07 Open</span>
+          <h1>
+            <span class="line"><span>Soft</span></span>
+            <span class="line"><span class="outline">Static</span></span>
+            <span class="line"><span class="grad-text">Mood.</span></span>
+          </h1>
+          <p class="lead">흐릿한 유리 너머로 번지는 빛처럼. 정해진 룩 대신 오늘의 무드로 입는 20대를 위한 레이어드 컬렉션, LUMÉ FW26.</p>
+          <div class="hero-cta">
+            <a href="#join" class="btn btn-primary">드롭 알림 받기 <span class="arrow">→</span></a>
+            <a href="#shop" class="btn btn-glass glass">컬렉션 보기</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat glass"><b data-count="48">0</b><small>신규 아이템</small></div>
+            <div class="stat glass"><b data-count="12" data-suffix="K+">0</b><small>알림 신청</small></div>
+            <div class="stat glass"><b data-count="72" data-suffix="%">0</b><small>리사이클 소재</small></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="model-card glass" id="tilt">
+            <div class="model-art"></div>
+            <div class="model-label glass">
+              <div><strong>Haze Puffer Hoodie</strong><span>Lavender Fog · Oversized</span></div>
+              <b style="font-family:var(--display)">₩129,000</b>
+            </div>
+          </div>
+          <div class="chip-float glass c-a">🔥 지금 342명이 보는 중</div>
+          <div class="chip-float glass c-b"><span class="avatars"><i></i><i></i><i></i></span> +2.4K 저장</div>
+          <div class="chip-float glass c-c">✦ 첫 구매 15% OFF</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-wrap glass">
+        <div class="marquee-track">
+          <span>SOFT STATIC <i class="star">✦</i> 무드로 입는 옷 <i class="star">✦</i> LIMITED DROP <i class="star">✦</i> GENDERLESS FIT <i class="star">✦</i> RECYCLED <i class="star">✦</i></span>
+          <span>SOFT STATIC <i class="star">✦</i> 무드로 입는 옷 <i class="star">✦</i> LIMITED DROP <i class="star">✦</i> GENDERLESS FIT <i class="star">✦</i> RECYCLED <i class="star">✦</i></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DROP COUNTDOWN -->
+    <section id="drop">
+      <div class="container">
+        <div class="drop glass reveal">
+          <div>
+            <span class="eyebrow glass"><span class="dot"></span> Limited · 500 pcs only</span>
+            <h2 class="h2" style="font-size:clamp(30px,4.4vw,52px)"><span class="ko">한정 드롭까지</span></h2>
+            <p class="lead">각 아이템 500장 한정. 알림 신청자에게 1시간 먼저 열려요. 놓치면 리스탁 없음.</p>
+          </div>
+          <div class="countdown" id="countdown">
+            <div class="cd-box glass"><b id="cd-d">00</b><small>Days</small></div>
+            <div class="cd-box glass"><b id="cd-h">00</b><small>Hrs</small></div>
+            <div class="cd-box glass"><b id="cd-m">00</b><small>Min</small></div>
+            <div class="cd-box glass"><b id="cd-s">00</b><small>Sec</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLLECTION -->
+    <section id="shop" style="padding-top:20px">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div>
+            <span class="eyebrow glass">02 — Collection</span>
+            <h2 class="h2">The <span class="grad-text">Drop</span> List</h2>
+          </div>
+          <div class="filters glass" role="tablist">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="outer">Outer</button>
+            <button data-filter="top">Top</button>
+            <button data-filter="bottom">Bottom</button>
+            <button data-filter="acc">Acc</button>
+          </div>
+        </div>
+        <div class="products" id="products"></div>
+      </div>
+    </section>
+
+    <!-- MOOD BENTO -->
+    <section id="mood">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div>
+            <span class="eyebrow glass">03 — Why LUMÉ</span>
+            <h2 class="h2"><span class="ko">우리가 옷을 만드는 방식</span></h2>
+          </div>
+          <p class="lead">트렌드는 빠르게, 소재는 오래. 20대가 진짜 고민하는 것들에 답했어요.</p>
+        </div>
+        <div class="bento">
+          <div class="tile glass t-big reveal">
+            <div class="art"></div>
+            <span class="eyebrow glass" style="align-self:flex-start">Lookbook FW26</span>
+            <div>
+              <h3>하나의 아이템,<br>세 가지 무드.</h3>
+              <p style="margin-top:10px;color:var(--text);opacity:.8">레이어링만으로 캠퍼스 → 카페 → 파티까지. 탈부착 디테일로 스타일을 바꿔 입어요.</p>
+            </div>
+          </div>
+          <div class="tile glass reveal">
+            <p>평균 착용 횟수</p>
+            <div><div class="big-num" data-count="120" data-suffix="+">0</div><p>소재 내구 테스트 기준</p></div>
+          </div>
+          <div class="tile glass t-tall reveal" style="justify-content:center;gap:20px;text-align:center">
+            <div class="ring"></div>
+            <div><h3>Genderless<br>Fit</h3><p style="margin-top:6px">XS–XXL, 누구나 같은 핏 가이드</p></div>
+          </div>
+          <div class="tile glass reveal">
+            <h3>48h<br>무료 교환</h3>
+            <p>사이즈 고민 없이, 앱에서 원탭으로.</p>
+          </div>
+          <div class="tile glass t-wide reveal">
+            <div style="display:flex;justify-content:space-between;align-items:center"><h3>Season Palette</h3><p>Hover me</p></div>
+            <div class="palette">
+              <i style="background:#b78cff"></i><i style="background:#ff7ac6"></i><i style="background:#6ee7ff"></i><i style="background:#d4ff5a"></i><i style="background:#2a2540"></i>
+            </div>
+          </div>
+          <div class="tile glass t-wide reveal">
+            <div style="display:flex;justify-content:space-between;align-items:end"><h3>리사이클 소재 비율</h3><span class="big-num" style="font-size:40px">72%</span></div>
+            <div><div class="eco-bar"><i></i></div><p style="margin-top:10px">2027년까지 100% 전환 목표</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quiz">
+      <div class="container">
+        <div class="quiz glass reveal">
+          <div>
+            <span class="eyebrow glass">04 — Style Test</span>
+            <h2 class="h2" style="font-size:clamp(30px,4.4vw,52px)"><span class="ko">오늘 나의 무드는?</span></h2>
+            <p class="lead">하나만 골라보세요. 지금 기분에 맞는 룩을 추천해 드려요.</p>
+            <div class="quiz-result glass" id="quizResult"></div>
+          </div>
+          <div class="quiz-opts" id="quizOpts">
+            <button class="opt" data-r="Haze Puffer Hoodie + Wide Cargo — 포근하지만 존재감 있는 룩"><span class="emo">☁️</span><b>나른하고 몽글</b><small>침대 밖은 위험해</small></button>
+            <button class="opt" data-r="Chrome Mini Bag + Mesh Layer Tee — 빛 받으면 반짝이는 Y2K 룩"><span class="emo">✨</span><b>오늘은 주인공</b><small>약속 3개 있는 날</small></button>
+            <button class="opt" data-r="Static Knit Cardigan + Pleated Skirt — 차분한 듯 포인트 있는 룩"><span class="emo">🎧</span><b>혼자만의 시간</b><small>카페 + 플레이리스트</small></button>
+            <button class="opt" data-r="Glass Windbreaker + Track Pants — 가볍게 움직이기 좋은 스포티 룩"><span class="emo">⚡️</span><b>에너지 풀충전</b><small>어디든 떠나고 싶어</small></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section style="padding-top:20px">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div>
+            <span class="eyebrow glass">05 — Real Talk</span>
+            <h2 class="h2"><span class="ko">입어본 사람들</span></h2>
+          </div>
+        </div>
+        <div class="reviews">
+          <article class="review glass reveal">
+            <div class="stars">★★★★★</div>
+            <p>"색감이 사진보다 실물이 훨씬 예뻐요. 라벤더 후디 입고 나갔는데 어디 거냐고 세 번 질문받음 🫶"</p>
+            <div class="who"><i style="background:linear-gradient(135deg,var(--c1),var(--c2))"></i><div><b>@haze.yun</b><small>24 · 대학생 · 165cm M</small></div></div>
+          </article>
+          <article class="review glass reveal">
+            <div class="stars">★★★★★</div>
+            <p>"젠더리스 핏이라 남친이랑 같이 입어요. 오버핏인데 어깨선이 무너지지 않는 게 신기함."</p>
+            <div class="who"><i style="background:linear-gradient(135deg,var(--c3),var(--c1))"></i><div><b>@static.min</b><small>27 · 디자이너 · 178cm L</small></div></div>
+          </article>
+          <article class="review glass reveal">
+            <div class="stars">★★★★☆</div>
+            <p>"지난 드롭 놓쳐서 이번엔 알림 신청했어요. 리사이클 소재라는 게 구매 이유 중 하나!"</p>
+            <div class="who"><i style="background:linear-gradient(135deg,var(--c4),var(--c3))"></i><div><b>@lumi.jjj</b><small>22 · 직장인 · 160cm S</small></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="join">
+      <div class="container">
+        <div class="cta glass reveal">
+          <span class="eyebrow glass"><span class="dot"></span> Early Access</span>
+          <h2 class="h2">Be <span class="grad-text">First</span>.<br><span class="ko" style="font-size:.6em">1시간 먼저, 15% 더 싸게.</span></h2>
+          <p class="lead">드롭 알림을 신청하면 오픈 1시간 전 얼리 액세스 링크와 첫 구매 쿠폰을 보내드려요.</p>
+          <form class="form glass" id="joinForm">
+            <input type="email" required placeholder="이메일 주소를 입력하세요" aria-label="이메일" />
+            <button class="btn btn-primary" type="submit">알림 신청 <span class="arrow">→</span></button>
+          </form>
+          <div class="perks"><span>✓ 얼리 액세스</span><span>✓ 15% 웰컴 쿠폰</span><span>✓ 언제든 구독 해지</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="foot glass">
+        <a href="#" class="logo">LUMÉ<span>.</span></a>
+        <nav><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">Store</a><a href="#">FAQ</a><a href="#">Privacy</a></nav>
+        <small style="color:var(--muted)">© 2026 LUMÉ Studio. Concept page.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PLANNING DRAWER -->
+  <button class="brief-btn glass" id="briefBtn">📋 기획 노트</button>
+  <div class="drawer-bg" id="drawerBg"></div>
+  <aside class="drawer glass" id="drawer" aria-label="기획 노트">
+    <button class="icon-btn close" id="drawerClose" aria-label="닫기">✕</button>
+    <h2>Project Brief</h2>
+    <p style="color:var(--muted);font-size:14px">LUMÉ FW26 “Soft Static” 드롭 랜딩 페이지</p>
+
+    <div class="brief-block">
+      <h4>01 · 목적 & KPI</h4>
+      <ul>
+        <li>한정 드롭 <b>사전 알림 신청</b>(이메일 리드) 확보</li>
+        <li>KPI: 알림 신청 전환율 8%↑, 스크롤 75% 도달률, 찜(♡) 수</li>
+      </ul>
+    </div>
+    <div class="brief-block">
+      <h4>02 · 타깃 페르소나</h4>
+      <p><b>“무드 수집러” 24세 대학생/사회초년생</b></p>
+      <ul>
+        <li>인스타·틱톡으로 브랜드 발견, 모바일 구매 80%+</li>
+        <li>로고보다 <b>색감·무드·희소성</b>에 반응</li>
+        <li>가치소비(친환경)·젠더리스 핏 선호, 사이즈 실패 두려움</li>
+      </ul>
+    </div>
+    <div class="brief-block">
+      <h4>03 · 컨셉 & 톤</h4>
+      <p>“흐릿한 유리 너머의 빛” — 글라스모피즘 + 파스텔 메시 그라디언트로 몽환적 Y2K 무드. 카피는 반말 섞인 친근한 톤, 짧고 리듬감 있게.</p>
+    </div>
+    <div class="brief-block">
+      <h4>04 · 정보 구조 (IA)</h4>
+      <ul>
+        <li>Hero: 키네틱 타이포 + 소셜 프루프 칩</li>
+        <li>Drop: 카운트다운으로 긴급성(FOMO)</li>
+        <li>Collection: 카테고리 필터, 찜, 퀵 담기</li>
+        <li>Mood Bento: 브랜드 가치(내구성·젠더리스·교환·친환경)</li>
+        <li>Style Test: 인터랙티브 추천 → 참여 유도</li>
+        <li>Reviews → CTA(알림 신청) → Footer</li>
+      </ul>
+    </div>
+    <div class="brief-block">
+      <h4>05 · 적용 UI/UX 트렌드</h4>
+      <div class="tags">
+        <span>Glassmorphism</span><span>Bento Grid</span><span>Mesh Gradient</span><span>Kinetic Type</span>
+        <span>Grain Texture</span><span>Micro-interaction</span><span>3D Tilt</span><span>Scroll Reveal</span>
+        <span>Dark / Light</span><span>Infinite Marquee</span><span>Cursor Glow</span><span>Thumb-zone CTA</span>
+      </div>
+    </div>
+    <div class="brief-block">
+      <h4>06 · 접근성 & 성능</h4>
+      <ul>
+        <li>prefers-reduced-motion 대응, 키보드 포커스 유지</li>
+        <li>이미지 없이 CSS 그래픽 → 빠른 첫 로딩</li>
+        <li>모바일 우선 반응형 (≤600px 1열 구성)</li>
+      </ul>
+    </div>
+  </aside>
+
+  <div class="toast glass" id="toast"></div>
+
+<script>
+  // ---------- Products ----------
+  const products = [
+    { name: "Haze Puffer Hoodie", sub: "Lavender Fog", price: 129000, cat: "outer", tag: "BEST", bg: ["#b78cff", "#ff7ac6"], colors: ["#b78cff", "#e9e4f5", "#2a2540"], shape: "50% 50% 18% 18% / 40% 40% 18% 18%" },
+    { name: "Glass Windbreaker", sub: "Aqua Clear", price: 149000, cat: "outer", tag: "NEW", bg: ["#6ee7ff", "#b78cff"], colors: ["#6ee7ff", "#ffffff"], shape: "30% 30% 12% 12%" },
+    { name: "Mesh Layer Tee", sub: "Static Pink", price: 49000, cat: "top", tag: "NEW", bg: ["#ff7ac6", "#ffd1ec"], colors: ["#ff7ac6", "#111", "#fff"], shape: "22% 22% 8% 8% / 30% 30% 8% 8%" },
+    { name: "Static Knit Cardigan", sub: "Cream Haze", price: 89000, cat: "top", tag: "500 LTD", bg: ["#f1e7ff", "#b78cff"], colors: ["#f1e7ff", "#b78cff"], shape: "40% 40% 14% 14%" },
+    { name: "Wide Cargo Pants", sub: "Smoke Grey", price: 99000, cat: "bottom", tag: "BEST", bg: ["#2a2540", "#6ee7ff"], colors: ["#55506a", "#2a2540"], shape: "14% 14% 30% 30% / 8% 8% 40% 40%" },
+    { name: "Pleated Mini Skirt", sub: "Lilac", price: 69000, cat: "bottom", tag: "NEW", bg: ["#d8c4ff", "#ff7ac6"], colors: ["#d8c4ff", "#111"], shape: "20% 20% 50% 50% / 12% 12% 50% 50%" },
+    { name: "Chrome Mini Bag", sub: "Liquid Silver", price: 79000, cat: "acc", tag: "500 LTD", bg: ["#e6e6f0", "#6ee7ff"], colors: ["#c9cbd6", "#d4ff5a"], shape: "50%" },
+    { name: "Fuzzy Beanie", sub: "Lime Pop", price: 35000, cat: "acc", tag: "NEW", bg: ["#d4ff5a", "#6ee7ff"], colors: ["#d4ff5a", "#ff7ac6", "#b78cff"], shape: "50% 50% 10% 10% / 70% 70% 10% 10%" },
+  ];
+  const fmt = n => "₩" + n.toLocaleString("ko-KR");
+  const grid = document.getElementById("products");
+  grid.innerHTML = products.map((p, i) => `
+    <article class="product glass reveal" data-cat="${p.cat}" style="transition-delay:${(i % 4) * 70}ms">
+      <div class="p-img" style="background:linear-gradient(150deg, ${p.bg[0]}55, ${p.bg[1]}55)">
+        <span class="p-tag glass">${p.tag}</span>
+        <button class="like glass" aria-label="찜하기">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg>
+        </button>
+        <div class="shape" style="border-radius:${p.shape};background:linear-gradient(160deg, ${p.bg[0]}, ${p.bg[1]})"></div>
+        <button class="quick-add glass" data-name="${p.name}">+ 빠르게 담기</button>
+      </div>
+      <div class="p-info">
+        <div><h3>${p.name}</h3><p>${p.sub}</p></div>
+        <span class="p-price">${fmt(p.price)}</span>
+      </div>
+      <div class="swatches">${p.colors.map(c => `<i style="background:${c}"></i>`).join("")}</div>
+    </article>`).join("");
+
+  // Filters
+  document.querySelectorAll(".filters button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const f = btn.dataset.filter;
+      grid.querySelectorAll(".product").forEach(el => {
+        el.classList.toggle("hide", f !== "all" && el.dataset.cat !== f);
+      });
+    });
+  });
+
+  // Toast
+  const toast = document.getElementById("toast");
+  let toastT;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastT);
+    toastT = setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  // Like + cart
+  let cart = 0;
+  const badge = document.getElementById("cartBadge");
+  grid.addEventListener("click", e => {
+    const like = e.target.closest(".like");
+    const add = e.target.closest(".quick-add");
+    if (like) {
+      like.classList.toggle("on");
+      showToast(like.classList.contains("on") ? "♡ 위시리스트에 저장했어요" : "위시리스트에서 뺐어요");
+    }
+    if (add) {
+      cart++;
+      badge.textContent = cart;
+      badge.classList.add("show");
+      showToast(`🛍 ${add.dataset.name} 담았어요`);
+    }
+  });
+
+  // ---------- Countdown ----------
+  const target = new Date("2026-11-07T20:00:00+09:00").getTime();
+  const pad = n => String(n).padStart(2, "0");
+  function tick() {
+    let diff = Math.max(0, target - Date.now());
+    const d = Math.floor(diff / 864e5); diff %= 864e5;
+    const h = Math.floor(diff / 36e5); diff %= 36e5;
+    const m = Math.floor(diff / 6e4); diff %= 6e4;
+    const s = Math.floor(diff / 1e3);
+    document.getElementById("cd-d").textContent = pad(d);
+    document.getElementById("cd-h").textContent = pad(h);
+    document.getElementById("cd-m").textContent = pad(m);
+    document.getElementById("cd-s").textContent = pad(s);
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ---------- Reveal + count-up ----------
+  function countUp(el) {
+    const end = +el.dataset.count, suf = el.dataset.suffix || "";
+    const start = performance.now(), dur = 1400;
+    (function step(now) {
+      const t = Math.min(1, (now - start) / dur), e = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(end * e) + suf;
+      if (t < 1) requestAnimationFrame(step);
+    })(start);
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.classList.add("in");
+      en.target.querySelectorAll("[data-count]").forEach(countUp);
+      io.unobserve(en.target);
+    });
+  }, { threshold: .15 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  document.querySelectorAll(".hero-stats [data-count]").forEach(countUp);
+
+  // ---------- Glass sheen follows pointer ----------
+  document.addEventListener("pointermove", e => {
+    const g = e.target.closest(".glass");
+    if (g) {
+      const r = g.getBoundingClientRect();
+      g.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      g.style.setProperty("--my", `${e.clientY - r.top}px`);
+    }
+  });
+
+  // Cursor glow
+  const cursor = document.querySelector(".cursor");
+  document.addEventListener("pointermove", e => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+  });
+
+  // 3D tilt on hero card
+  const tilt = document.getElementById("tilt");
+  const visual = tilt.parentElement;
+  visual.addEventListener("pointermove", e => {
+    const r = visual.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    tilt.style.transform = `perspective(900px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg)`;
+  });
+  visual.addEventListener("pointerleave", () => tilt.style.transform = "");
+
+  // ---------- Theme ----------
+  const root = document.documentElement;
+  try { const saved = localStorage.getItem("lume-theme"); if (saved) root.dataset.theme = saved; } catch (e) {}
+  document.getElementById("themeBtn").addEventListener("click", () => {
+    root.dataset.theme = root.dataset.theme === "light" ? "dark" : "light";
+    try { localStorage.setItem("lume-theme", root.dataset.theme); } catch (e) {}
+  });
+
+  // ---------- Quiz ----------
+  const result = document.getElementById("quizResult");
+  document.getElementById("quizOpts").addEventListener("click", e => {
+    const opt = e.target.closest(".opt");
+    if (!opt) return;
+    document.querySelectorAll(".opt").forEach(o => o.classList.remove("sel"));
+    opt.classList.add("sel");
+    result.classList.remove("show"); void result.offsetWidth;
+    result.innerHTML = `<b>오늘의 추천 룩 →</b><br>${opt.dataset.r}`;
+    result.classList.add("show");
+  });
+
+  // ---------- Form ----------
+  document.getElementById("joinForm").addEventListener("submit", e => {
+    e.preventDefault();
+    e.target.reset();
+    showToast("🎉 신청 완료! 드롭 1시간 전에 알려드릴게요");
+  });
+
+  // ---------- Drawer ----------
+  const body = document.body;
+  const toggleDrawer = open => body.classList.toggle("drawer-open", open);
+  document.getElementById("briefBtn").addEventListener("click", () => toggleDrawer(true));
+  document.getElementById("drawerClose").addEventListener("click", () => toggleDrawer(false));
+  document.getElementById("drawerBg").addEventListener("click", () => toggleDrawer(false));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") toggleDrawer(false); });
+</script>
+</body>
+</html>
