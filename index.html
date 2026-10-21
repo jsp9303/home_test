@@ -165,6 +165,34 @@
   }
   .badge.show { transform: scale(1); }
 
+  /* ---------- Mobile menu ---------- */
+  .menu-btn { display: none; }
+  .menu-btn .bars { width: 18px; height: 12px; position: relative; }
+  .menu-btn .bars i {
+    position: absolute; left: 0; width: 100%; height: 2px; border-radius: 2px; background: currentColor;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), top .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .menu-btn .bars i:first-child { top: 1px; }
+  .menu-btn .bars i:last-child { top: 9px; }
+  .menu-btn[aria-expanded="true"] .bars i:first-child { top: 5px; transform: rotate(45deg); }
+  .menu-btn[aria-expanded="true"] .bars i:last-child { top: 5px; transform: rotate(-45deg); }
+  .menu-btn[aria-expanded="true"]:hover { transform: none; }
+  .m-menu {
+    position: fixed; top: 88px; left: 0; right: 0; margin-inline: auto; z-index: 50;
+    width: min(1200px, 100% - 32px); padding: 10px; display: grid; gap: 4px;
+    animation: menuIn .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .m-menu[hidden] { display: none; }
+  .m-menu a {
+    display: flex; justify-content: space-between; align-items: center; min-height: 52px; padding: 0 18px;
+    border-radius: 18px; font-family: var(--display); font-size: 18px; font-weight: 500; letter-spacing: -.01em;
+    transition: background .2s;
+  }
+  .m-menu a span { color: var(--muted); font-size: 13px; font-family: var(--font); font-weight: 400; }
+  .m-menu a:hover, .m-menu a:focus-visible { background: var(--glass-strong); }
+  @keyframes menuIn { from { opacity: 0; transform: translateY(-10px); } }
+  section[tabindex="-1"]:focus { outline: none; }
+
   /* ---------- Hero ---------- */
   .hero { min-height: 100vh; display: grid; align-items: center; padding-top: 130px; padding-bottom: 60px; }
   .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
@@ -375,6 +403,19 @@
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+  /* ---------- Mobile bottom CTA ---------- */
+  .m-cta {
+    position: fixed; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 55;
+    display: none; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 8px 8px 8px 20px; border-radius: 999px;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), opacity .3s;
+  }
+  .m-cta p { font-size: 13px; line-height: 1.35; min-width: 0; }
+  .m-cta p b { display: block; font-family: var(--display); font-size: 14px; }
+  .m-cta p small { color: var(--muted); font-size: 12px; }
+  .m-cta .btn { padding: 14px 20px; }
+  .m-cta.away { transform: translateY(calc(100% + 32px)); opacity: 0; pointer-events: none; }
+
   /* ---------- Cursor glow ---------- */
   .cursor {
     position: fixed; width: 340px; height: 340px; border-radius: 50%; pointer-events: none; z-index: -1;
@@ -394,6 +435,8 @@
     .bento { grid-template-columns: repeat(2, 1fr); }
     .reviews { grid-template-columns: 1fr; }
     .nav ul { display: none; }
+    .menu-btn { display: grid; }
+    #join { scroll-margin-top: 16px; }
   }
   @media (max-width: 600px) {
     section { padding: 72px 0; }
@@ -416,10 +459,17 @@
     .form { flex-direction: column; border-radius: 24px; }
     .form input { padding: 14px 16px; }
     .form .btn { justify-content: center; }
-    .brief-btn { right: 50%; transform: translateX(50%); }
+    .brief-btn { display: none; }
     .cursor { display: none; }
+    .m-cta { display: flex; }
+    .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+    footer { padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px)); }
+  }
+  @media (max-width: 360px) {
+    .m-cta p small { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .reveal { opacity: 1; transform: none; }
   }
@@ -452,8 +502,18 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
         <span class="badge" id="cartBadge">0</span>
       </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mMenu">
+        <span class="bars" aria-hidden="true"><i></i><i></i></span>
+      </button>
     </div>
   </header>
+  <nav class="m-menu glass" id="mMenu" aria-label="모바일 메뉴" hidden>
+    <a href="#drop">Drop <span>한정 드롭</span></a>
+    <a href="#shop">Collection <span>컬렉션</span></a>
+    <a href="#mood">Mood <span>브랜드 이야기</span></a>
+    <a href="#quiz">Style Test <span>무드 테스트</span></a>
+    <a href="#join">Join <span>알림 신청</span></a>
+  </nav>
 
   <main>
     <!-- HERO -->
@@ -662,6 +722,12 @@
       </div>
     </div>
   </footer>
+
+  <!-- MOBILE BOTTOM CTA -->
+  <div class="m-cta glass" id="mCta">
+    <p><b>FW26 Drop · 11.07</b><small>1시간 먼저 + 15% 쿠폰</small></p>
+    <a href="#join" class="btn btn-primary" id="mCtaBtn">드롭 알림 받기 <span class="arrow">→</span></a>
+  </div>
 
   <!-- PLANNING DRAWER -->
   <button class="brief-btn glass" id="briefBtn">📋 기획 노트</button>
@@ -886,11 +952,81 @@
 
   // ---------- Drawer ----------
   const body = document.body;
-  const toggleDrawer = open => body.classList.toggle("drawer-open", open);
+  const toggleDrawer = open => {
+    body.classList.toggle("drawer-open", open);
+    if (open) setMenu(false);
+    syncCta();
+  };
   document.getElementById("briefBtn").addEventListener("click", () => toggleDrawer(true));
   document.getElementById("drawerClose").addEventListener("click", () => toggleDrawer(false));
   document.getElementById("drawerBg").addEventListener("click", () => toggleDrawer(false));
-  document.addEventListener("keydown", e => { if (e.key === "Escape") toggleDrawer(false); });
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    if (isMenuOpen()) setMenu(false, true);
+    else toggleDrawer(false);
+  });
+
+  // ---------- Mobile menu ----------
+  const menuBtn = document.getElementById("menuBtn");
+  const mMenu = document.getElementById("mMenu");
+  const isMenuOpen = () => !mMenu.hidden;
+  function setMenu(open, returnFocus) {
+    if (open === isMenuOpen()) return;
+    mMenu.hidden = !open;
+    menuBtn.setAttribute("aria-expanded", open);
+    menuBtn.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+    if (open) {
+      toggleDrawer(false);
+      mMenu.querySelector("a").focus();
+    } else if (returnFocus) {
+      menuBtn.focus();
+    }
+    syncCta();
+  }
+  menuBtn.addEventListener("click", () => setMenu(!isMenuOpen(), true));
+  // Link chosen: close and hand focus to the target section so Tab continues from there
+  mMenu.addEventListener("click", e => {
+    const link = e.target.closest("a");
+    if (!link) return;
+    setMenu(false);
+    const target = document.querySelector(link.getAttribute("href"));
+    if (target) {
+      target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+    }
+  });
+  // Tab moved focus elsewhere on the page
+  mMenu.addEventListener("focusout", e => {
+    const to = e.relatedTarget;
+    if (to && !mMenu.contains(to) && to !== menuBtn) setMenu(false);
+  });
+  // Tap/click outside (pointerdown: iOS doesn't fire click on non-interactive areas)
+  document.addEventListener("pointerdown", e => {
+    if (!isMenuOpen() || mMenu.contains(e.target) || menuBtn.contains(e.target)) return;
+    setMenu(false, mMenu.contains(document.activeElement));
+  });
+  matchMedia("(max-width: 1000px)").addEventListener("change", e => { if (!e.matches) setMenu(false); });
+
+  // ---------- Mobile bottom CTA ----------
+  const mCta = document.getElementById("mCta");
+  const joinSec = document.getElementById("join");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let joinInView = false;
+  function syncCta() {
+    const hide = joinInView || isMenuOpen() || body.classList.contains("drawer-open");
+    mCta.classList.toggle("away", hide);
+    mCta.inert = hide;
+  }
+  new IntersectionObserver(([en]) => {
+    joinInView = en.isIntersecting;
+    syncCta();
+  }).observe(joinSec.querySelector(".cta"));
+  document.getElementById("mCtaBtn").addEventListener("click", e => {
+    e.preventDefault();
+    const reduce = reduceMotion.matches;
+    joinSec.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); // scroll-margin-top keeps it below the fixed nav
+    setTimeout(() => joinSec.querySelector("input").focus({ preventScroll: true }), reduce ? 0 : 700);
+  });
 </script>
 </body>
 </html>
